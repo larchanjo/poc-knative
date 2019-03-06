@@ -1,0 +1,16 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: example-build
+spec:
+  source:
+    git:
+      url: "https://github.com/knative/docs.git"
+      revision: "v0.1.x"
+    subPath: "serving/samples/helloworld-go/"
+  steps:
+  - name: build-and-push
+    image: "gcr.io/kaniko-project/executor:v0.6.0"
+    args:
+    - "--dockerfile=/workspace/Dockerfile"
+    - "--destination=gcr.io/supple-flux-233615/helloworld-go:v1"
